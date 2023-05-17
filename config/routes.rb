@@ -11,4 +11,5 @@ Rails.application.routes.draw do
     get "subordinates", on: :member
   end
 
+  resources :questions
 end

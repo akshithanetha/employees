@@ -2,24 +2,27 @@ class EmployeesController < ApplicationController
   before_action :authenticate_employee!
 
   def index
-    @employees = Employee.all
-    authorize @employees
-    render json: @employees, status: 200
+    employees = Employee.all
+    authorize employees
+    render json: employees, status: 200
   end
 
   def subordinates
     manager = Employee.find(params[:id])
     subordinates = manager.subordinates
+    authorize manager
     render json: subordinates, status: 200
   end
 
   def show
     employee = Employee.find(params[:id])
+    authorize employee
     render json: employee, status: 200
   end
 
   def create
     employee = Employee.new(employee_params)
+    authorize employee
     if employee.save
       render json: employee, status: 200
     else
@@ -29,6 +32,7 @@ class EmployeesController < ApplicationController
 
   def update
     employee = Employee.find(params[:id])
+    authorize employee
     if employee.update(employee_params)
       render json: employee, status: 200
     else
@@ -38,6 +42,7 @@ class EmployeesController < ApplicationController
 
   def destroy
     employee = Employee.find(params[:id])
+    authorize employee
     employee.destroy
     render json: {message: "Record Destroyed Successfully"}
   end
