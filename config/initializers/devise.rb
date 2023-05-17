@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'a97bed012f95fb564a6c8e260882c8e9321a1882f6b9cf7ef6e9c4b05ea092dbd327bde5439846c92ecdb0115b4fbb93f94e6f6a390d21f681143ba8529aa440'
+  config.secret_key = 'a97bed012f95fb564a6c8e260882c8e9321a1882f6b9cf7ef6e9c4b05ea092dbd327bde5439846c92ecdb0115b4fbb93f94e6f6a390d21f681143ba8529aa440'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -311,7 +311,7 @@ Devise.setup do |config|
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
   config.jwt do |jwt|
-    jwt.secret = Rails.application.secret_key_base
+    jwt.secret = Rails.application.credentials.fetch(:secret_key_base)
 
     jwt.dispatch_requests = [
       ["POST",%r{^/employees/sign_in$}]
