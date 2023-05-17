@@ -7,5 +7,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  resources :employees do
+    get "subordinates", on: :member
+  end
 
 end
