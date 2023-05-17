@@ -2,9 +2,9 @@ class EmployeesController < ApplicationController
   before_action :authenticate_employee!
 
   def index
-    @employees = Employee.all
-    authorize @employees
-    render json: @employees, status: 200
+    @employee= Employee.all
+    # authorize @employee
+    render json: @employee, status: 200
   end
 
   def subordinates

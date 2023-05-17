@@ -5,21 +5,24 @@ class Employee < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
+  has_many :subordinates, class_name: "Employee", foreign_key: "manager_id"
 
-  ROLES = %w{HR manager subordinate}
+  belongs_to :manager, class_name: "Employee", optional: true
+
+  # ROLES = %w{HR manager subordinate}
 
   def jwt_payload
     super
   end
-
-
-  ROLES.each do |role_name|
-    define_method "#{role_name}?" do
-      role == role_name
-    end
+  def is_manager?
+    role == manager
   end
 
-  has_many :subordinates, class_name: "Employee", foreign_key: "manager_id"
+  # ROLES.each do |role_name|
+  #   define_method "#{role_name}?" do
+  #     role == role_name
+  #   end
+  # end
 
-  belongs_to :manager, class_name: "Employee", optional: true
+ 
 end
